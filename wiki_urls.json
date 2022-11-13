@@ -1,0 +1,216 @@
+{
+  "categories": [
+    {
+      "title": "Overview & Installation",
+      "url": "Overview",
+      "pages": [
+        {
+          "title": "Installation Guide",
+          "url": "InstallationGuide"
+        },
+        {
+          "title": "Project Settings",
+          "url": "ProjectSettings"
+        },
+        {
+          "title": "URP / HDRP Render Pipelines",
+          "url": "URP-HDRP"
+        },
+        {
+          "title": "Demo Scene",
+          "url": "DemoScene"
+        }
+      ]
+    },
+    {
+      "title": "Device & SDK Support",
+      "url": "DeviceSupport",
+      "pages": [
+        {
+          "title": "Device Support",
+          "url": "Overview"
+        },
+        {
+          "title": "Meta Quest & Rift S",
+          "url": "OculusQuestRiftS"
+        },
+        {
+          "title": "SteamVR & OpenVR",
+          "url": "SteamVR"
+        },
+        {
+          "title": "HTC Vive",
+          "url": "HTCVive"
+        },
+        {
+          "title": "Windows Mixed Reality",
+          "url": "WMR"
+        },
+        {
+          "title": "Pico",
+          "url": "Pico"
+        },
+        {
+          "title": "Custom Input",
+          "url": "CustomInput"
+        }
+      ]
+    },
+    {
+      "title": "VRIF Core Components",
+      "url": "Core",
+      "pages": [
+        {
+          "title": "Grabber",
+          "url": "Grabber"
+        },
+        {
+          "title": "Grabbable",
+          "url": "Grabbable"
+        },
+        {
+          "title": "Grabbable Events",
+          "url": "GrabbableEvents"
+        },
+        {
+          "title": "Climbable",
+          "url": "Climbable"
+        },
+        {
+          "title": "Input Bridge",
+          "url": "InputBridge"
+        },
+        {
+          "title": "Player Teleport",
+          "url": "PlayerTeleport"
+        },
+        {
+          "title": "Smooth Locomotion",
+          "url": "SmoothLocomotion"
+        },
+        {
+          "title": "Player Rotation",
+          "url": "PlayerRotation"
+        },
+        {
+          "title": "BNGPlayerController",
+          "url": "BNGPlayerController"
+        }
+      ]
+    },
+    {
+      "title": "VRIF General",
+      "url": "General",
+      "pages": [
+        {
+          "title": "Buttons, Switches & Levers",
+          "url": "ButtonsSwitchesLevers"
+        },
+        {
+          "title": "Grab Points",
+          "url": "GrabPoints"
+        },
+        {
+          "title": "Snap Zones",
+          "url": "SnapZones"
+        },
+        {
+          "title": "VR Hands",
+          "url": "VRHands"
+        },
+        {
+          "title": "Hand Poses",
+          "url": "HandPoses"
+        }
+      ]
+    },
+    {
+      "title": "VRIF Extras",
+      "url": "Extras",
+      "pages": [
+        {
+          "title": "VR Emulator",
+          "url": "VREmulator"
+        },
+        {
+          "title": "Arms and Body IK",
+          "url": "ArmsBodyIK"
+        },
+        {
+          "title": "Slow Motion",
+          "url": "SlowMotion"
+        },
+        {
+          "title": "Dealing & Taking Damage",
+          "url": "DealingAndTakingDamage"
+        }
+      ]
+    },
+    {
+      "title": "VRIF Integrations",
+      "url": "Integrations",
+      "pages": [
+        {
+          "title": "SteamVR",
+          "url": "SteamVR"
+        },
+        {
+          "title": "Oculus Integration",
+          "url": "Oculus"
+        },
+        {
+          "title": "FinalIK",
+          "url": "FinalIK"
+        },
+        {
+          "title": "Emerald AI",
+          "url": "EmeraldAI"
+        },
+        {
+          "title": "Curved UI",
+          "url": "CurvedUI"
+        },
+        {
+          "title": "Photon PUN2",
+          "url": "PhotonPUN2"
+        },
+        {
+          "title": "VR Builder",
+          "url": "VRBuilder"
+        }
+      ]
+    },
+    {
+      "title": "Tutorials",
+      "url": "Tutorials",
+      "pages": [
+        {
+          "title": "Creating a Grabbable Object",
+          "url": "Creating-a-Grabbable-object"
+        },
+        {
+          "title": "Replacing Weapon Models",
+          "url": "Replacing-Weapon-Models"
+        }
+      ]
+    },
+    {
+      "title": "Tips & Tricks",
+      "url": "Tips&Tricks",
+      "pages": [
+        {
+          "title": "Upgrading to New Versions",
+          "url": "UpgradingToNewVersions"
+        },
+        {
+          "title": "Common Issues & Fixes",
+          "url": "CommonIssues&Fixes"
+        },
+        {
+          "title": "Tips & Guidelines",
+          "url": "Tips&Guidelines"
+        }
+      ]
+    }
+  ]
+}
