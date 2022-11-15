@@ -94,8 +94,8 @@ A bot created by <@%s> for the VRIF Discord server (<%s>).
 **/help** - *Displays this message*
 ''' % (dev_id, server_invite_url)
 
-    embed = create_embed("VRIF Wiki Help [Click For Wiki Website]", description=description, error="",
-                         image=logo_url, url=wiki_base_url)
+    embed = create_embed("VRIF Wiki Help [Click For Wiki Website]", description=description,
+                         footer="Bot © CompuGenius Programs. All rights reserved.", image=logo_url, url=wiki_base_url)
     await ctx.respond(embed=embed)
 
 
@@ -117,11 +117,10 @@ def create_paginator(embeds):
 
 
 def create_embed(title, description=None, color=discord.Color.green(),
-                 footer="© CompuGenius Programs. All rights reserved.",
-                 error="Any errors? Please report to %s" % dev_tag,
+                 footer="Any errors? Please report to %s" % dev_tag,
                  image="", *, url="", author="", author_url=""):
     embed = discord.Embed(title=title, description=description, url=url, color=color)
-    embed.set_footer(text="%s\n%s" % (footer, error))
+    embed.set_footer(text=footer)
     embed.set_thumbnail(url=image)
     embed.set_author(name=author, url=author_url)
     return embed
