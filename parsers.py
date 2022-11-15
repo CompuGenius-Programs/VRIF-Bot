@@ -1,4 +1,5 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from typing import List
 
 from dataclasses_json import dataclass_json
 
@@ -17,7 +18,7 @@ class Category:
     """Class for a wiki category."""
     title: str = ""
     url: str = ""
-    pages: list[Page] = ""
+    pages: List[Page] = field(default_factory=list)
 
 
 wiki_pages = ['Overview & Installation / Installation Guide', 'Overview & Installation / Project Settings',
