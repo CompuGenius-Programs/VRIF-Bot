@@ -117,7 +117,7 @@ def create_paginator(embeds):
 
 
 def create_embed(title, description=None, color=discord.Color.green(),
-                 footer="Any errors? Please report to %s" % dev_tag,
+                 footer="Any errors with the bot? Please report to %s" % dev_tag,
                  image="", *, url="", author="", author_url=""):
     embed = discord.Embed(title=title, description=description, url=url, color=color)
     embed.set_footer(text=footer)
