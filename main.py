@@ -38,7 +38,8 @@ async def get_pages(ctx: discord.AutocompleteContext):
 
 
 @bot.slash_command(name="wiki", description="Get wiki links.")
-async def _wiki(ctx, page: Option(str, "Page (Ex. Installation Guide)", autocomplete=get_pages, required=False)):
+async def _wiki(ctx, page: Option(str, "Page (Ex. Installation Guide)", autocomplete=get_pages, required=False),
+                message_id: Option(str, "ID of Message to Reply To", required=False)):
     with open("wiki_urls.json", "r", encoding="utf-8") as fp:
         data = json.load(fp)
 
@@ -62,8 +63,14 @@ async def _wiki(ctx, page: Option(str, "Page (Ex. Installation Guide)", autocomp
         if url == wiki_base_url:
             page = "No Wiki Page Found With Name `%s`" % page
 
+        text = "%s recommends you take a look at the following wiki page:" % ctx.author.mention
         embed = create_embed(page, url=url)
-        await ctx.respond(embed=embed)
+        if message_id is not None:
+            message = await ctx.fetch_message(int(message_id))
+            await message.reply(text, embed=embed)
+            await ctx.respond("Replied to message with ID `%s`." % message_id, ephemeral=True)
+        else:
+            await ctx.respond(text, embed=embed)
 
     else:
         embeds = []
