@@ -1,5 +1,5 @@
 {
-  "categories": [
+  "vrif": [
     {
       "title": "Overview & Installation",
       "url": "Overview",
@@ -211,6 +211,12 @@
           "url": "Tips&Guidelines"
         }
       ]
+    }
+  ],
+  "external": [
+    {
+      "title": "Final IK (VRIK)",
+      "url": "http://www.root-motion.com/finalikdox/html/page16.html"
     }
   ]
 }

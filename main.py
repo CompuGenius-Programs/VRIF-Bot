@@ -44,40 +44,54 @@ async def _wiki(ctx, page: Option(str, "Page (Ex. Installation Guide)", autocomp
     with open("wiki_urls.json", "r", encoding="utf-8") as fp:
         data = json.load(fp)
 
-    categories = data["categories"]
+    vrif = data["vrif"]
+    external = data["external"]
 
     if page is not None:
-        categories = [parsers.Category.from_dict(category) for category in categories]
-
         url = wiki_base_url
-
         page_lower = page.lower()
-        for category in categories:
-            title_lower = category.title.lower()
-            if page_lower.startswith(title_lower):
-                page_lower = page_lower.removeprefix(title_lower + " / ")
-                for p in category.pages:
-                    if page_lower == p.title.lower():
-                        url += "%s/%s" % (category.url, p.url)
-                        break
+
+        if not page.startswith("External"):
+            categories = [parsers.VRIF.from_dict(category) for category in vrif]
+
+            for category in categories:
+                title_lower = category.title.lower()
+                if page_lower.startswith(title_lower):
+                    page_lower = page_lower.removeprefix(title_lower + " / ")
+                    for p in category.pages:
+                        if page_lower == p.title.lower():
+                            url += "%s/%s" % (category.url, p.url)
+                            break
+
+        else:
+            categories = [parsers.External.from_dict(category) for category in external]
+
+            for category in categories:
+                title_lower = category.title.lower()
+                if page_lower.removeprefix("external / ") == title_lower:
+                    url = category.url
+                    break
 
         if url == wiki_base_url:
             page = "No Wiki Page Found With Name `%s`" % page
-
-        text = "%s recommends you take a look at the following wiki page:" % ctx.author.mention
-        embed = create_embed(page, url=url)
-        if message_id is not None:
-            message = await ctx.fetch_message(int(message_id))
-            await message.reply(text, embed=embed)
-            await ctx.respond("Replied to message with ID `%s`." % message_id, ephemeral=True)
+            embed = create_embed(page)
+            await ctx.respond(embed=embed, ephemeral=True)
         else:
-            await ctx.respond(text, embed=embed)
+            text = "%s recommends you take a look at the following wiki page:" % ctx.author.mention
+
+            embed = create_embed(page, url=url)
+            if message_id is not None:
+                message = await ctx.fetch_message(int(message_id))
+                await message.reply(text, embed=embed)
+                await ctx.respond("Replied to message with ID `%s`." % message_id, ephemeral=True)
+            else:
+                await ctx.respond(text, embed=embed)
 
     else:
         embeds = []
 
-        for category in categories:
-            category = parsers.Category.from_dict(category)
+        for category in vrif:
+            category = parsers.VRIF.from_dict(category)
 
             category_url = wiki_base_url + category.url
 
@@ -87,6 +101,14 @@ async def _wiki(ctx, page: Option(str, "Page (Ex. Installation Guide)", autocomp
                 description += "• [%s](%s)\n" % (page.title, "%s/%s" % (category_url, page.url))
 
             embed = create_embed(category.title, description=description)
+            embeds.append(embed)
+
+        for category in external:
+            category = parsers.External.from_dict(category)
+
+            description = "• [%s](%s)" % (category.title, category.url)
+
+            embed = create_embed("External", description=description)
             embeds.append(embed)
 
         paginator = create_paginator(embeds)

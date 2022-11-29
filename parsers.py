@@ -14,11 +14,19 @@ class Page:
 
 @dataclass_json
 @dataclass
-class Category:
+class VRIF:
     """Class for a wiki category."""
     title: str = ""
     url: str = ""
     pages: List[Page] = field(default_factory=list)
+
+
+@dataclass_json
+@dataclass
+class External:
+    """Class for a wiki category."""
+    title: str = ""
+    url: str = ""
 
 
 wiki_pages = ['Overview & Installation / Installation Guide', 'Overview & Installation / Project Settings',
@@ -38,4 +46,5 @@ wiki_pages = ['Overview & Installation / Installation Guide', 'Overview & Instal
               'VRIF Integrations / Emerald AI', 'VRIF Integrations / Curved UI', 'VRIF Integrations / Photon PUN2',
               'VRIF Integrations / VR Builder', 'Tutorials / Creating a Grabbable Object',
               'Tutorials / Replacing Weapon Models', 'Tips & Tricks / Upgrading to New Versions',
-              'Tips & Tricks / Common Issues & Fixes', 'Tips & Tricks / Tips & Guidelines']
+              'Tips & Tricks / Common Issues & Fixes', 'Tips & Tricks / Tips & Guidelines',
+              'External / Final IK (VRIK)']
