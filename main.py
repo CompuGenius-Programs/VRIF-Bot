@@ -102,8 +102,8 @@ A bot created by <@%s> for the VRIF Discord server (<%s>).
 **/help** - *Displays this message*
 ''' % (dev_id, server_invite_url)
 
-    embed = create_embed("VRIF Wiki Help [Click For Wiki Website]", description=description,
-                         footer="Bot © CompuGenius Programs. All rights reserved.", image=logo_url, url=wiki_base_url)
+    embed = create_embed("VRIF Wiki Help [Click For Wiki Website]", description=description, error="", image=logo_url,
+                         url=wiki_base_url)
     await ctx.respond(embed=embed)
 
 
