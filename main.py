@@ -15,6 +15,7 @@ bot = discord.Bot()
 
 dev_id = 496392770374860811
 dev_tag = "@CompuGenius Programs#2368"
+dev_paypal = "paypal.me/compugeniusprograms"
 
 server_invite_url = "https://discord.gg/mZ3cBrEcmE"
 logo_url = "https://wiki.beardedninjagames.com/logo_vrif.png"
@@ -124,10 +125,11 @@ def create_paginator(embeds):
 
 
 def create_embed(title, description=None, color=discord.Color.green(),
-                 footer="Any errors with the bot? Please report to %s" % dev_tag,
+                 footer="Consider supporting the bot's developer at %s" % dev_paypal,
+                 error="Any errors with the bot? Please report to %s" % dev_tag,
                  image="", *, url="", author="", author_url=""):
     embed = discord.Embed(title=title, description=description, url=url, color=color)
-    embed.set_footer(text=footer)
+    embed.set_footer(text="%s\n%s" % (footer, error))
     embed.set_thumbnail(url=image)
     embed.set_author(name=author, url=author_url)
     return embed
