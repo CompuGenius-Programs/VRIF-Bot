@@ -15,7 +15,7 @@ publisher_api_key = os.getenv("PUBLISHER_API_KEY")
 
 bot = discord.Bot()
 
-dev_id = 496392770374860811
+dev_id = 684607822125727748
 dev_tag = "@CompuGenius Programs#2368"
 dev_paypal = "paypal.me/compugeniusprograms"
 
