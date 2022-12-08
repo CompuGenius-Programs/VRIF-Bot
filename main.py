@@ -17,7 +17,6 @@ bot = discord.Bot()
 
 dev_id = 496392770374860811
 dev_tag = "@CompuGenius Programs#2368"
-dev_paypal = "paypal.me/compugeniusprograms"
 
 server_invite_url = "https://discord.gg/mZ3cBrEcmE"
 logo_url = "https://wiki.beardedninjagames.com/logo_vrif.png"
@@ -140,7 +139,7 @@ class VerifyInvoiceModal(discord.ui.Modal):
                         await interaction.user.add_roles(
                             discord.utils.get(interaction.guild.roles, id=verified_role_id),
                             reason="User verified invoice.")
-                        embed = create_embed("Invoice Verified", "You are now @Verified!")
+                        embed = create_embed("Invoice Verified", "You are now @verified!")
                         await interaction.followup.send(embed=embed, ephemeral=True)
                         logs_channel = discord.utils.get(interaction.guild.channels, id=verification_logs_channel)
                         await logs_channel.send("Verified <@%s>." % interaction.user.id)
@@ -153,7 +152,7 @@ class VerifyInvoiceModal(discord.ui.Modal):
 
 
 class VerifyInvoiceView(discord.ui.View):
-    def __int__(self):
+    def __init__(self):
         super().__init__(timeout=None)
 
     @discord.ui.button(label="Get Verified", style=discord.ButtonStyle.primary)
@@ -199,11 +198,10 @@ def create_paginator(embeds):
 
 
 def create_embed(title, description=None, color=discord.Color.green(),
-                 footer="Consider supporting the bot's developer at %s" % dev_paypal,
                  error="Any errors with the bot? Please report to %s" % dev_tag,
                  image="", *, url="", author="", author_url=""):
     embed = discord.Embed(title=title, description=description, url=url, color=color)
-    embed.set_footer(text="%s\n%s" % (footer, error))
+    embed.set_footer(text=error)
     embed.set_thumbnail(url=image)
     embed.set_author(name=author, url=author_url)
     return embed
