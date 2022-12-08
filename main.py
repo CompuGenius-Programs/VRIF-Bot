@@ -1,6 +1,7 @@
 import json
 import os
 
+import aiohttp
 import discord
 import dotenv
 from discord import Option
@@ -10,6 +11,7 @@ import parsers
 
 dotenv.load_dotenv()
 token = os.getenv("TOKEN")
+publisher_api_key = os.getenv("PUBLISHER_API_KEY")
 
 bot = discord.Bot()
 
@@ -21,6 +23,9 @@ server_invite_url = "https://discord.gg/mZ3cBrEcmE"
 logo_url = "https://wiki.beardedninjagames.com/logo_vrif.png"
 
 wiki_base_url = "https://wiki.beardedninjagames.com/"
+
+verified_role_id = 1050424717544275999
+invoice_verification_url = "https://api.assetstore.unity3d.com/publisher/v1/invoice/verify.json?key=%s&invoice=%s"
 
 
 @bot.event
@@ -83,7 +88,7 @@ async def _wiki(ctx, page: Option(str, "Page (Ex. Installation Guide)", autocomp
             if message_id is not None:
                 message = await ctx.fetch_message(int(message_id))
                 await message.reply(text, embed=embed)
-                await ctx.respond("Replied to message with ID `%s`." % message_id, ephemeral=True)
+                await ctx.respond("Dismiss this message.", ephemeral=True)
             else:
                 await ctx.respond(text, embed=embed)
 
@@ -113,6 +118,49 @@ async def _wiki(ctx, page: Option(str, "Page (Ex. Installation Guide)", autocomp
 
         paginator = create_paginator(embeds)
         await paginator.respond(ctx.interaction)
+
+
+class VerifyInvoiceModal(discord.ui.Modal):
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+
+        self.add_item(discord.ui.InputText(label="Invoice Number", min_length=14, max_length=14,
+                                           placeholder="IN000000000000"))
+
+    async def callback(self, interaction: discord.Interaction):
+        await interaction.response.defer()
+        async with aiohttp.ClientSession() as session:
+            async with session.get(invoice_verification_url % (publisher_api_key, self.children[0].value)) as resp:
+                data = await resp.json()
+                invoices = data["invoices"]
+                if len(invoices) >= 1:
+                    if any(x["refunded"] == "No" and x["downloaded"] == "Yes" for x in invoices):
+                        await interaction.user.add_roles(
+                            discord.utils.get(interaction.guild.roles, id=verified_role_id),
+                            reason="User verified invoice.")
+                        embed = create_embed("Invoice Verified", "You are now @Verified!")
+                        await interaction.followup.send(embed=embed, ephemeral=True)
+                    else:
+                        embed = create_embed("Invoice Not Verified", "You are not verified.")
+                        await interaction.followup.send(embed=embed, ephemeral=True)
+                else:
+                    embed = create_embed("Invalid Invoice Number", "The invoice number you entered is invalid.")
+                    await interaction.followup.send(embed=embed, ephemeral=True)
+
+
+class VerifyInvoiceView(discord.ui.View):
+    def __int__(self):
+        super().__init__(timeout=None)
+
+    @discord.ui.button(label="Get Verified", style=discord.ButtonStyle.primary)
+    async def button_callback(self, button, interaction):
+        await interaction.response.send_modal(VerifyInvoiceModal(title="Verify Invoice Number"))
+
+
+@bot.slash_command(name="verify", description="Verify an invoice.")
+async def send_modal(ctx):
+    await ctx.send(view=VerifyInvoiceView())
+    await ctx.respond("Dismiss this message.", ephemeral=True)
 
 
 @bot.slash_command(name="help", description="Get help for using the bot.")
