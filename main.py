@@ -27,6 +27,8 @@ wiki_base_url = "https://wiki.beardedninjagames.com/"
 verified_role_id = 1050424717544275999
 invoice_verification_url = "https://api.assetstore.unity3d.com/publisher/v1/invoice/verify.json?key=%s&invoice=%s"
 
+verification_logs_channel = 1050437008272654487
+
 
 @bot.event
 async def on_ready():
@@ -140,6 +142,8 @@ class VerifyInvoiceModal(discord.ui.Modal):
                             reason="User verified invoice.")
                         embed = create_embed("Invoice Verified", "You are now @Verified!")
                         await interaction.followup.send(embed=embed, ephemeral=True)
+                        logs_channel = discord.utils.get(interaction.guild.channels, id=verification_logs_channel)
+                        await logs_channel.send("Verified <@%s>." % interaction.user.id)
                     else:
                         embed = create_embed("Invoice Not Verified", "You are not verified.")
                         await interaction.followup.send(embed=embed, ephemeral=True)
