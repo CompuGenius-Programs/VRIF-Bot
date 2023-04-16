@@ -215,8 +215,32 @@
   ],
   "external": [
     {
+      "title": "SteamVR Plugin",
+      "url": "https://valvesoftware.github.io/steamvr_unity_plugin"
+    },
+    {
+      "title": "Oculus SDK",
+      "url": "https://developer.oculus.com/documentation/unity"
+    },
+    {
       "title": "Final IK (VRIK)",
       "url": "http://www.root-motion.com/finalikdox/html/page16.html"
+    },
+    {
+      "title": "Emerald AI",
+      "url": "https://github.com/Black-Horizon-Studios/Emerald-AI/wiki"
+    },
+    {
+      "title": "Curved UI",
+      "url": "https://docs.google.com/document/d/10hNcvOMissNbGgjyFyV1MS7HwkXXE6270A6Ul8h8pnQ"
+    },
+    {
+      "title": "Photon PUN 2",
+      "url": "https://doc.photonengine.com/pun"
+    },
+    {
+      "title": "VR Builder",
+      "url": "https://www.mindport.co/vr-builder"
     }
   ]
 }
