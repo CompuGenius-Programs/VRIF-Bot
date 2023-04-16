@@ -134,12 +134,7 @@ class VerifyInvoiceModal(discord.ui.Modal):
             async with session.get(invoice_verification_url % (publisher_api_key, self.children[0].value)) as resp:
                 data = await resp.json()
                 if interaction.user.id == dev_id:
-                    message = """
-                    ```
-                    %s
-                    ```
-                    """
-                    embed = create_embed("Invoice Information", message % data)
+                    embed = create_embed("Invoice Information", "```%s```" % data)
                     await interaction.followup.send(embed=embed, ephemeral=True)
                 else:
                     invoices = data["invoices"]
