@@ -19,6 +19,10 @@
         {
           "title": "Demo Scene",
           "url": "DemoScene"
+        },
+        {
+          "title": "Scripting API",
+          "url": "DemoScene"
         }
       ]
     },

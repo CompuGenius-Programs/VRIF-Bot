@@ -28,6 +28,8 @@ invoice_verification_url = "https://api.assetstore.unity3d.com/publisher/v1/invo
 
 verification_logs_channel = 1050437008272654487
 
+wiki_pages = []
+
 
 @bot.event
 async def on_ready():
@@ -36,12 +38,27 @@ async def on_ready():
     print(bot.user.id)
     print('------')
 
+    with open("wiki_urls.json", "r", encoding="utf-8") as fp:
+        data = json.load(fp)
+
+    vrif = data["vrif"]
+    external = data["external"]
+
+    for category in vrif:
+        category = parsers.VRIF.from_dict(category)
+        for page in category.pages:
+            wiki_pages.append("%s / %s" % (category.title, page.title))
+
+    for page in external:
+        page = parsers.External.from_dict(page)
+        wiki_pages.append("External / %s" % page.title)
+
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing,
-                                                        name="amazing games made with VRIF. Type /help ."))
+                                                        name="amazing games made with VRIF. Type /help"))
 
 
 async def get_pages(ctx: discord.AutocompleteContext):
-    return [page for page in parsers.wiki_pages if ctx.value.lower() in page.lower()]
+    return [page for page in wiki_pages if ctx.value.lower() in page.lower()]
 
 
 @bot.slash_command(name="wiki", description="Get wiki links.")
