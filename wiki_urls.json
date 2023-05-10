@@ -23,7 +23,7 @@
         {
           "title": "Scripting API",
           "url": "ScriptingAPI",
-          "override": "https://beardedninjagames.com/vr-framework/api/v2/namespace_b_n_g.html"
+          "override": "http://beardedninjagames.com/vr-framework/api/v2/namespace_b_n_g.html"
         }
       ]
     },
