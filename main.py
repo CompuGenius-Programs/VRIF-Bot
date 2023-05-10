@@ -83,7 +83,10 @@ async def _wiki(ctx, page: Option(str, "Page (Ex. Installation Guide)", autocomp
                     page_lower = page_lower.removeprefix(title_lower + " / ")
                     for p in category.pages:
                         if page_lower == p.title.lower():
-                            url += "%s/%s" % (category.url, p.url)
+                            if page.override != "":
+                                url = page.override
+                            else:
+                                url += "%s/%s" % (category.url, p.url)
                             break
 
         else:

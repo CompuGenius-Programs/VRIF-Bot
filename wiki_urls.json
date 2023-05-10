@@ -22,7 +22,8 @@
         },
         {
           "title": "Scripting API",
-          "url": "DemoScene"
+          "url": "ScriptingAPI",
+          "override": "https://beardedninjagames.com/vr-framework/api/v2/namespace_b_n_g.html"
         }
       ]
     },

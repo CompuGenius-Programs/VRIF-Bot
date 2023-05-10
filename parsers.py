@@ -10,6 +10,7 @@ class Page:
     """Class for a wiki page."""
     title: str = ""
     url: str = ""
+    override: str = ""
 
 
 @dataclass_json
