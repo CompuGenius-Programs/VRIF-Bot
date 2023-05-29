@@ -38,6 +38,13 @@ async def on_ready():
     print(bot.user.id)
     print('------')
 
+    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing,
+                                                        name="amazing games made with VRIF. Type /help"))
+
+    await populate_pages()
+
+
+async def populate_pages():
     with open("wiki_urls.json", "r", encoding="utf-8") as fp:
         data = json.load(fp)
 
@@ -52,9 +59,6 @@ async def on_ready():
     for page in external:
         page = parsers.External.from_dict(page)
         wiki_pages.append("External / %s" % page.title)
-
-    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing,
-                                                        name="amazing games made with VRIF. Type /help"))
 
 
 async def get_pages(ctx: discord.AutocompleteContext):
