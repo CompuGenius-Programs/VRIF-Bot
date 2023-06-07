@@ -181,7 +181,7 @@ class VerifyInvoiceModal(discord.ui.Modal):
                 else:
                     embed = create_embed("Invalid Invoice Number", "The invoice number you entered is invalid.")
                     await interaction.followup.send(embed=embed, ephemeral=True)
-                    await logs_channel.send("Invalid Invoice Number: %s" % invoices)
+                    await logs_channel.send("Invalid Invoice Number for <@%s>: %s" % (interaction.user.id, invoices))
 
 
 class VerifyInvoiceView(discord.ui.View):
