@@ -160,23 +160,28 @@ class VerifyInvoiceModal(discord.ui.Modal):
                 if interaction.user.id == dev_id:
                     embed = create_embed("Invoice Information", "```%s```" % json.dumps(data, indent=4))
                     await interaction.followup.send(embed=embed, ephemeral=True)
-                else:
-                    invoices = data["invoices"]
-                    if len(invoices) >= 1:
-                        if any(x["refunded"] == "No" and x["downloaded"] == "Yes" for x in invoices):
+
+                logs_channel = discord.utils.get(interaction.guild.channels, id=verification_logs_channel)
+                invoices = data["invoices"]
+                if len(invoices) >= 1:
+                    if any(x["refunded"] == "No" and x["downloaded"] == "Yes" for x in invoices):
+                        if interaction.user.id != dev_id:
                             await interaction.user.add_roles(
                                 discord.utils.get(interaction.guild.roles, id=verified_role_id),
                                 reason="User verified invoice.")
-                            embed = create_embed("Invoice Verified", "You are now @verified!")
-                            await interaction.followup.send(embed=embed, ephemeral=True)
-                            logs_channel = discord.utils.get(interaction.guild.channels, id=verification_logs_channel)
                             await logs_channel.send("Verified <@%s>." % interaction.user.id)
-                        else:
-                            embed = create_embed("Invoice Not Verified", "You are not verified.")
-                            await interaction.followup.send(embed=embed, ephemeral=True)
-                    else:
-                        embed = create_embed("Invalid Invoice Number", "The invoice number you entered is invalid.")
+
+                        embed = create_embed("Invoice Verified", "You are now @verified!")
                         await interaction.followup.send(embed=embed, ephemeral=True)
+                    else:
+                        embed = create_embed("Invoice Not Verified", "You are not verified.")
+                        await interaction.followup.send(embed=embed, ephemeral=True)
+                        await logs_channel.send("Did Not Verify <@%s>. Refunded: %s, Downloaded: %s" % (
+                            interaction.user.id, invoices[0]["refunded"], invoices[0]["downloaded"]))
+                else:
+                    embed = create_embed("Invalid Invoice Number", "The invoice number you entered is invalid.")
+                    await interaction.followup.send(embed=embed, ephemeral=True)
+                    await logs_channel.send("Invalid Invoice Number: %s" % invoices)
 
 
 class VerifyInvoiceView(discord.ui.View):
