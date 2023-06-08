@@ -26,7 +26,9 @@ wiki_base_url = "https://wiki.beardedninjagames.com/"
 verified_role_id = 684607822125727748
 invoice_verification_url = "https://api.assetstore.unity3d.com/publisher/v1/invoice/verify.json?key=%s&invoice=%s"
 
+vrif_server = 681644705792131083
 verification_logs_channel = 1050437008272654487
+verification_channel = 1050434477362515998
 
 wiki_pages = []
 
@@ -42,6 +44,10 @@ async def on_ready():
                                                         name="amazing games made with VRIF. Type /help"))
 
     await populate_pages()
+
+    guild = bot.get_guild(vrif_server)
+    verify_channel = discord.utils.get(guild.channels, id=verification_channel)
+    await verify_channel.send(view=VerifyInvoiceView())
 
 
 async def populate_pages():
@@ -145,6 +151,15 @@ async def _wiki(ctx, page: Option(str, "Page (Ex. Installation Guide)", autocomp
         await paginator.respond(ctx.interaction)
 
 
+class VerifyInvoiceView(discord.ui.View):
+    def __init__(self):
+        super().__init__(timeout=None)
+
+    @discord.ui.button(label="Get Verified", style=discord.ButtonStyle.primary)
+    async def button_callback(self, button, interaction):
+        await interaction.response.send_modal(VerifyInvoiceModal(title="Verify Invoice Number"))
+
+
 class VerifyInvoiceModal(discord.ui.Modal):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
@@ -182,21 +197,6 @@ class VerifyInvoiceModal(discord.ui.Modal):
                     embed = create_embed("Invalid Invoice Number", "The invoice number you entered is invalid.")
                     await interaction.followup.send(embed=embed, ephemeral=True)
                     await logs_channel.send("Invalid Invoice Number for <@%s>: %s" % (interaction.user.id, invoices))
-
-
-class VerifyInvoiceView(discord.ui.View):
-    def __init__(self):
-        super().__init__(timeout=None)
-
-    @discord.ui.button(label="Get Verified", style=discord.ButtonStyle.primary)
-    async def button_callback(self, button, interaction):
-        await interaction.response.send_modal(VerifyInvoiceModal(title="Verify Invoice Number"))
-
-
-@bot.slash_command(name="verify", description="Verify an invoice.")
-async def send_modal(ctx):
-    await ctx.send(view=VerifyInvoiceView())
-    await ctx.respond("Dismiss this message.", ephemeral=True)
 
 
 @bot.slash_command(name="help", description="Get help for using the bot.")
