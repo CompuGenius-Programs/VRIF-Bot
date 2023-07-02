@@ -16,7 +16,7 @@ publisher_api_key = os.getenv("PUBLISHER_API_KEY")
 bot = discord.Bot()
 
 dev_id = 496392770374860811
-dev_tag = "@CompuGenius Programs#2368"
+dev_tag = "@CompuGeniusPrograms"
 
 server_invite_url = "https://discord.gg/mZ3cBrEcmE"
 logo_url = "https://wiki.beardedninjagames.com/logo_vrif.png"
@@ -110,18 +110,15 @@ async def _wiki(ctx, page: Option(str, "Page (Ex. Installation Guide)", autocomp
 
         if url == wiki_base_url:
             page = "No Wiki Page Found With Name `%s`" % page
-            embed = create_embed(page)
-            await ctx.respond(embed=embed, ephemeral=True)
+            await ctx.respond(page)
         else:
-            text = "%s recommends you take a look at the following wiki page:" % ctx.author.mention
+            text = "%s recommends you take a look at the %s wiki page: %s" % (ctx.author.mention, page, url)
 
-            embed = create_embed(page, url=url)
             if message_id is not None:
                 message = await ctx.fetch_message(int(message_id))
-                await message.reply(text, embed=embed)
-                await ctx.respond("Dismiss this message.", ephemeral=True)
+                await message.reply(text)
             else:
-                await ctx.respond(text, embed=embed)
+                await ctx.respond(text)
 
     else:
         embeds = []
