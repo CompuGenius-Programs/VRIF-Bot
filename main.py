@@ -112,7 +112,7 @@ async def _wiki(ctx, page: Option(str, "Page (Ex. Installation Guide)", autocomp
             page = "No Wiki Page Found With Name `%s`" % page
             await ctx.respond(page)
         else:
-            text = "%s recommends you take a look at the %s wiki page: %s" % (ctx.author.mention, page, url)
+            text = "%s recommends you take a look at the `%s` wiki page: %s" % (ctx.author.mention, page, url)
 
             if message_id is not None:
                 message = await ctx.fetch_message(int(message_id))
