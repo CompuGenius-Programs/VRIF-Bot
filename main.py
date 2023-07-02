@@ -116,6 +116,7 @@ async def _wiki(ctx, page: Option(str, "Page (Ex. Installation Guide)", autocomp
 
             if message_id is not None:
                 message = await ctx.fetch_message(int(message_id))
+                await ctx.respond("Dismiss this message.", ephemeral=True)
                 await message.reply(text)
             else:
                 await ctx.respond(text)
