@@ -187,7 +187,8 @@ class VerifyInvoiceModal(discord.ui.Modal):
                         embed = create_embed("Invoice Verified", "You are now @verified!")
                         await interaction.followup.send(embed=embed, ephemeral=True)
                     else:
-                        embed = create_embed("Invoice Not Verified", "You are not verified.")
+                        embed = create_embed("Invoice Not Verified",
+                                             "You are not verified. Please download your asset before verifying.")
                         await interaction.followup.send(embed=embed, ephemeral=True)
                         await logs_channel.send("Did Not Verify <@%s>. Refunded: %s, Downloaded: %s" % (
                             interaction.user.id, invoices[0]["refunded"], invoices[0]["downloaded"]))
