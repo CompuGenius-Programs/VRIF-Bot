@@ -18,7 +18,7 @@ bot = discord.Bot()
 dev_id = 496392770374860811
 dev_tag = "@CompuGeniusPrograms"
 
-server_invite_url = "https://discord.gg/mZ3cBrEcmE"
+server_invite_url = "https://discord.gg/BFauBCj"
 logo_url = "https://wiki.beardedninjagames.com/logo_vrif.png"
 
 wiki_base_url = "https://wiki.beardedninjagames.com/"
