@@ -160,7 +160,7 @@
           "url": "SteamVR"
         },
         {
-          "title": "Oculus Integration",
+          "title": "Meta Integration",
           "url": "Oculus"
         },
         {
@@ -224,8 +224,8 @@
       "url": "https://valvesoftware.github.io/steamvr_unity_plugin"
     },
     {
-      "title": "Oculus SDK",
-      "url": "https://developer.oculus.com/documentation/unity"
+      "title": "Meta SDK",
+      "url": "https://developers.meta.com/horizon/documentation/unity/"
     },
     {
       "title": "Final IK (VRIK)",
@@ -242,6 +242,10 @@
     {
       "title": "Photon PUN 2",
       "url": "https://doc.photonengine.com/pun"
+    },
+    {
+      "title": "Mirror Networking",
+      "url": "https://mirror-networking.gitbook.io/docs"
     },
     {
       "title": "VR Builder",
